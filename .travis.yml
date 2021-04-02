@@ -2,6 +2,7 @@ language: android
 android:
   components:
     - build-tools-28.0.3
+    - build-tools-26.0.2
     - android-28
     - android-26
     - add-on
@@ -22,13 +23,14 @@ env:
 sudo: required
 
 before_install:
+  - yes | sdkmanager "platforms;android-26"
   - yes | sdkmanager "platforms;android-28"
   - yes | sdkmanager "platforms;android-30"
   - chmod +x gradlew
 
 before_script:
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a -s "768x1280"
+  - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - adb wait-for-device
   - adb shell input keyevent 82 &
