@@ -1,4 +1,4 @@
-package com.bme.aut.craftedcocktails.api
+package com.bme.aut.craftedcocktails.network.api
 
 import retrofit2.Call
 import retrofit2.http.DELETE

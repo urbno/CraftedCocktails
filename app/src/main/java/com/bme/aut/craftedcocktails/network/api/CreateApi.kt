@@ -1,4 +1,4 @@
-package com.bme.aut.craftedcocktails.api
+package com.bme.aut.craftedcocktails.network.api
 
 import com.bme.aut.craftedcocktails.model.ApiResponse
 import com.bme.aut.craftedcocktails.model.Cocktail
