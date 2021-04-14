@@ -81,10 +81,15 @@ dependencies {
 
     /**
      * Network
+     * https://github.com/swagger-api/swagger-core
+     * https://github.com/square/okhttp
+     * https://github.com/google/gson
+     * https://github.com/square/retrofit
      */
     implementation 'io.swagger:swagger-annotations:1.5.8'
     implementation 'com.squareup.okhttp:okhttp:2.7.5'
     implementation 'com.squareup.okhttp:logging-interceptor:2.7.5'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
 
 }
