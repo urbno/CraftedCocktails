@@ -7,6 +7,7 @@ import java.util.*
 
 @ApiModel(description = "")
 class Cocktail {
+
     /**
      */
     @get:ApiModelProperty(value = "")
@@ -25,19 +26,11 @@ class Cocktail {
     @SerializedName("strCategory")
     var strCategory: String? = null
 
-    enum class StrAlcoholicEnum(private val value: String) {
-        ALCOHOLIC("Alcoholic"), NON_ALCOHOLIC("Non alcoholic");
-
-        override fun toString(): String {
-            return value
-        }
-    }
-
     /**
      */
     @get:ApiModelProperty(value = "")
     @SerializedName("strAlcoholic")
-    var strAlcoholic: StrAlcoholicEnum? = null
+    var strAlcoholic: String? = null
 
     /**
      */

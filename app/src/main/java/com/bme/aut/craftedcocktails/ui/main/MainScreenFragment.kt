@@ -17,7 +17,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel.loadCocktails()
+        viewModel.loadCocktails()
     }
 
     override fun render(viewState: MainScreenViewState) {
@@ -27,7 +27,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             Loading -> {
             }
             is DataReady -> {
-                Toast.makeText(context, viewState.result.toString(), Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, viewState.result.toString(), Toast.LENGTH_LONG).show()
             }
             NetworkError -> {
             }
