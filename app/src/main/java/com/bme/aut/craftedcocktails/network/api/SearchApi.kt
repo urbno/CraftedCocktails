@@ -13,7 +13,7 @@ interface SearchApi {
      * @return Call<Response>
     </Response> */
     @GET("search.php")
-    fun searchCocktailByName(
+    suspend fun searchCocktailByName(
         @Query("s") s: String?
-    ): Call<Response?>?
+    ): Response
 }
