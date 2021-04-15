@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "cocktail")
-data class Cocktail(
+data class CocktailEntity (
     @PrimaryKey(autoGenerate = true) var cocktailDBId: Long?,
     @ColumnInfo(name = "idDrink") var idDrink: String?,
     @ColumnInfo(name = "strDrink") var strDrink: String?,

@@ -12,7 +12,7 @@ class CocktailsDiskDataSource @Inject constructor(private val cocktailDao: Cockt
     suspend fun getSpecificCocktail(idDrink: String) =
         cocktailDao.getSpecificCocktail(idDrink)
 
-    suspend fun insertCocktails(cocktail: Cocktail) =
+    suspend fun insertCocktails(cocktail: CocktailEntity) =
         cocktailDao.insertCocktails(cocktail)
 
     suspend fun deleteCocktail(idDrink: String) =
