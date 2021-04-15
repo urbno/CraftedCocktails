@@ -1,19 +1,18 @@
 package com.bme.aut.craftedcocktails.network.api
 
 import com.bme.aut.craftedcocktails.model.Cocktail
-import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.PUT
+import retrofit2.http.PATCH
 
 interface UpdateApi {
     /**
      * Update an existing cocktail
      *
-     * @param body Cocktail object that needs to be added to the database
+     * @param body Represent the parts of the cocktail that needs to be updated in the database
      * @return Call<Void>
     </Void> */
-    @PUT("modify.php")
-    fun updateCocktail(
+    @PATCH("modify.php")
+    suspend fun updateCocktail(
         @Body body: Cocktail?
-    ): Call<Void?>?
+    ): Void
 }

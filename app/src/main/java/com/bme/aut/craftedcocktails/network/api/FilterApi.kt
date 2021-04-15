@@ -14,7 +14,7 @@ interface FilterApi {
      * @return Call<Response>
     </Response> */
     @GET("filter.php")
-    fun searchCocktailByAlcoholic(
+    suspend fun searchCocktailByFilter(
         @Query("a") a: String?, @Query("i") i: String?
-    ): Call<Response?>?
+    ): Response
 }

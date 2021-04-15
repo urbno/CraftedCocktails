@@ -10,6 +10,7 @@ import com.bme.aut.craftedcocktails.di.DaggerAppComponent
 import timber.log.Timber
 
 class CocktailApplication : RainbowCakeApplication() {
+
     override lateinit var injector: RainbowCakeComponent
 
     override fun setupInjector() {

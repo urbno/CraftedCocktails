@@ -7,7 +7,9 @@ class MainScreenPresenter @Inject constructor(
     private val cocktailsInteractor: CocktailsInteractor
 ) {
 
-    suspend fun getCocktails() {
-        // TODO("Not yet implemented")
-    }
+    suspend fun getCocktailByName(cocktailName: String) =
+        cocktailsInteractor.getCocktailByName(cocktailName)
+
+    suspend fun getRandomCocktail() =
+        cocktailsInteractor.getRandomCocktail()
 }

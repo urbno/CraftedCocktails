@@ -15,74 +15,44 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+        return OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideCreateApi(client: OkHttpClient): CreateApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(CreateApi::class.java)
-    }
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     @Provides
     @Singleton
-    fun provideDeleteApi(client: OkHttpClient): DeleteApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(DeleteApi::class.java)
-    }
+    fun provideCreateApi(retrofit: Retrofit): CreateApi = retrofit.create(CreateApi::class.java)
 
     @Provides
     @Singleton
-    fun provideFilterApi(client: OkHttpClient): FilterApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(FilterApi::class.java)
-    }
+    fun provideDeleteApi(retrofit: Retrofit): DeleteApi = retrofit.create(DeleteApi::class.java)
 
     @Provides
     @Singleton
-    fun provideLookupApi(client: OkHttpClient): LookupApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(LookupApi::class.java)
-    }
+    fun provideFilterApi(retrofit: Retrofit): FilterApi = retrofit.create(FilterApi::class.java)
 
     @Provides
     @Singleton
-    fun provideSearchApi(client: OkHttpClient): SearchApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(SearchApi::class.java)
-    }
+    fun provideLookupApi(retrofit: Retrofit): LookupApi = retrofit.create(LookupApi::class.java)
 
     @Provides
     @Singleton
-    fun provideUpdateApi(client: OkHttpClient): UpdateApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(NetworkConfig.API_ENDPOINT_ADDRESS)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(UpdateApi::class.java)
-    }
+    fun provideSearchApi(retrofit: Retrofit): SearchApi = retrofit.create(SearchApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUpdateApi(retrofit: Retrofit): UpdateApi = retrofit.create(UpdateApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRandomApi(retrofit: Retrofit): RandomApi = retrofit.create(RandomApi::class.java)
 }
