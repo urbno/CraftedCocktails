@@ -2,7 +2,6 @@ package com.bme.aut.craftedcocktails.ui.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
@@ -27,7 +26,6 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             Loading -> {
             }
             is DataReady -> {
-                //Toast.makeText(context, viewState.result.toString(), Toast.LENGTH_LONG).show()
             }
             NetworkError -> {
             }
