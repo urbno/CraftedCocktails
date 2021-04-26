@@ -8,8 +8,11 @@ import co.zsmb.rainbowcake.base.OneShotEvent
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
+import co.zsmb.rainbowcake.navigation.extensions.applyArgs
+import co.zsmb.rainbowcake.navigation.navigator
 import com.bme.aut.craftedcocktails.R
 import com.bme.aut.craftedcocktails.model.Cocktail
+import com.bme.aut.craftedcocktails.ui.details.DetailsScreenFragment
 import com.bme.aut.craftedcocktails.ui.main.adapter.CocktailsAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -58,9 +61,11 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
     override fun onEvent(event: OneShotEvent) {
     }
 
-    private fun onCocktailItemClicked(cocktail: Cocktail) {
-
-    }
+    private fun onCocktailItemClicked(cocktail: Cocktail) =
+        navigator?.add(DetailsScreenFragment().applyArgs {
+            putString(DetailsScreenFragment.COCKTAIL_ID, cocktail.idDrink)
+        }
+        )
 
     private fun onCocktailItemLongClicked(cocktail: Cocktail): Boolean {
         return true
