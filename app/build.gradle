@@ -149,6 +149,33 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_runtime_version"
 
     /**
+     * Material Drawer
+     * https://github.com/zsmb13/MaterialDrawerKt
+     */
+    def material_drawer_version = '3.0.0'
+    def recyclerview_version = '1.2.0'
+    def androidx_annotation_version = '1.2.0'
+    def material_typeface_version = '3.0.1.4.original-kotlin@aar'
+    implementation "co.zsmb:materialdrawer-kt:$material_drawer_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.annotation:annotation:$androidx_annotation_version"
+    implementation "com.mikepenz:google-material-typeface:$material_typeface_version"
+
+    /**
+     * Card View
+     * https://developer.android.com/guide/topics/ui/layout/cardview
+     */
+    def card_view_version = '1.0.0'
+    implementation "androidx.cardview:cardview:$card_view_version"
+
+    /**
+     * Glide
+     * https://github.com/bumptech/glide
+     */
+    def glide_version = '4.12.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    /**
      * Test
      */
     def test_support_version = '1.0.2'
