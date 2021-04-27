@@ -7,5 +7,3 @@ object Initial : AboutScreenViewState()
 object Loading : AboutScreenViewState()
 
 data class AboutReady(val result: String) : AboutScreenViewState()
-
-object NetworkError: AboutScreenViewState()

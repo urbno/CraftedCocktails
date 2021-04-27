@@ -21,10 +21,10 @@
         android:layout_margin="8dp"
         card_view:cardBackgroundColor="@color/color_info"
         card_view:cardCornerRadius="8dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintLeft_toLeftOf="parent"
         card_view:layout_constraintRight_toRightOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintBottom_toBottomOf="parent">
+        card_view:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/author_name"
+                android:id="@+id/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -55,7 +55,7 @@
                 tools:text="App Name" />
 
             <TextView
-                android:id="@+id/cocktail_type"
+                android:id="@+id/author_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -63,7 +63,7 @@
                 android:textSize="18sp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/author_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/app_name"
                 tools:text="Author Name" />
 
             <TextView
@@ -74,8 +74,32 @@
                 android:textColor="@color/black"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/cocktail_type"
+                card_view:layout_constraintTop_toBottomOf="@+id/author_name"
                 tools:text="App version" />
+
+            <TextView
+                android:id="@+id/learn_more_about_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/learn_more_about_at"
+                android:textColor="@color/black"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/app_version" />
+
+            <TextView
+                android:id="@+id/learn_more_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:autoLink="web"
+                android:textColor="@color/black"
+                android:textColorLink="@color/color_link"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/learn_more_about_text"
+                tools:text="Github repository link" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

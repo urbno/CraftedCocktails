@@ -1,5 +1,6 @@
 package com.bme.aut.craftedcocktails.ui.details
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,6 +11,7 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import com.bme.aut.craftedcocktails.R
 import com.bme.aut.craftedcocktails.model.Cocktail
 import com.bumptech.glide.Glide
+import com.example.awesomedialog.*
 import kotlinx.android.synthetic.main.fragment_details.*
 import timber.log.Timber
 
@@ -21,6 +23,7 @@ class DetailsScreenFragment :
     }
 
     private val TAG = DetailsScreenFragment::class.java.simpleName
+    private lateinit var cocktailId: String
 
     override fun getViewResource() = R.layout.fragment_details
 
@@ -29,7 +32,7 @@ class DetailsScreenFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cocktailId = requireArguments().getString(COCKTAIL_ID).toString()
+        cocktailId = requireArguments().getString(COCKTAIL_ID).toString()
         viewModel.getCocktailDetailsById(cocktailId)
     }
 
@@ -53,7 +56,9 @@ class DetailsScreenFragment :
                 initDetailView(viewState.result)
             }
             DatabaseError -> {
-                // TODO("Not yet implemented")
+                progress_bar.isVisible = false
+                card_view.isVisible = false
+                showDatabaseAlertDialog()
             }
         }
     }
@@ -98,5 +103,16 @@ class DetailsScreenFragment :
             cocktail_ingredients_5.text = cocktail.strIngredient5
             cocktail_ingredients_qty_5.text = cocktail.strMeasure5
         }
+    }
+
+    private fun showDatabaseAlertDialog() {
+        AwesomeDialog.build(requireActivity())
+            .title("Database Error", titleColor = Color.BLACK)
+            .body("Something went wrong during database request", color = Color.BLACK)
+            .icon(R.drawable.ic_error_symbol)
+            .onPositive("Refresh") {
+                Timber.d("$TAG network error on positive")
+                viewModel.getCocktailDetailsById(cocktailId)
+            }
     }
 }

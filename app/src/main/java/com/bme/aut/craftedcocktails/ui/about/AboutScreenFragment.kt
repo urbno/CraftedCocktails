@@ -41,15 +41,14 @@ class AboutScreenFragment : RainbowCakeFragment<AboutScreenViewState, AboutScree
                 card_view.isVisible = true
                 initDetailView(viewState.result)
             }
-            NetworkError -> {
-                // TODO("Not yet implemented")
-            }
         }.exhaustive
     }
 
     private fun initDetailView(authorName: String) {
+        app_name.text = getString(R.string.app_name)
         author_name.text = authorName
-        app_version.text = "1.0.0"
+        app_version.text = getString(R.string.app_version_number)
+        learn_more_about.text = getString(R.string.repository_link)
         Glide.with(app_icon)
             .load(R.mipmap.ic_launcher)
             .into(app_icon)
