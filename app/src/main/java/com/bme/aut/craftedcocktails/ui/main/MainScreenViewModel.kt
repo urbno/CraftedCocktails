@@ -5,6 +5,7 @@ import co.zsmb.rainbowcake.base.RainbowCakeViewModel
 import com.bme.aut.craftedcocktails.model.Cocktail
 import com.bme.aut.craftedcocktails.util.ItemConverter
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 class MainScreenViewModel @Inject constructor(
@@ -51,6 +52,24 @@ class MainScreenViewModel @Inject constructor(
     }
 
     // endregion network
+    fun searchByCocktailType(type: String) = execute {
+        viewState = Loading
+        viewState = try {
+            val typedCocktails = mainScreenPresenter.filterByAlcoholic(type)
+            val mList = typedCocktails.drinks?.toMutableList()
+            mList?.shuffle(Random())
+            val randomCocktailIds = mList?.subList(0, 10)
+            val detailedCocktails = arrayListOf<Cocktail>()
+            randomCocktailIds?.forEach {
+                val detailedCocktail = mainScreenPresenter.getDetailsOfCocktail(it?.idDrink!!)
+                detailedCocktails.add(detailedCocktail.drinks?.get(0)!!)
+                Timber.d("$TAG detailedCocktail: $detailedCocktail")
+            }
+            DataReady(detailedCocktails)
+        } catch (e: Exception) {
+            NetworkError
+        }
+    }
 
     // region database
 

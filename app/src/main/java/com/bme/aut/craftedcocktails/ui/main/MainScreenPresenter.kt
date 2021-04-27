@@ -20,6 +20,9 @@ class MainScreenPresenter @Inject constructor(
     suspend fun getRandomCocktail() =
         cocktailsInteractor.getRandomCocktail()
 
+    suspend fun getDetailsOfCocktail(cocktailId: String) =
+        cocktailsInteractor.getDetailsOfCocktail(cocktailId)
+
     suspend fun getSavedCocktails() =
         cocktailsInteractor.getSavedCocktails()
 

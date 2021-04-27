@@ -93,6 +93,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
                 if (cocktailNameToSearch.isNotEmpty()) {
                     Timber.d("$TAG cocktailNameToSearch: $cocktailNameToSearch")
                     viewModel.searchCocktailByName(cocktailNameToSearch)
+                    cocktail_name_search_field.text?.clear()
                     return@setOnEditorActionListener true
                 }
             }
@@ -103,6 +104,13 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             viewModel.loadCocktails()
         }
 
+        cocktail_type_spinner.setItems("None", "Alcoholic", "Non Alcoholic")
+        cocktail_type_spinner.setOnItemSelectedListener { view, position, id, item ->
+            Timber.d("$TAG $item clicked")
+            if (item != "None") {
+                viewModel.searchByCocktailType(item as String)
+            }
+        }
 
         viewModel.loadCocktails()
     }

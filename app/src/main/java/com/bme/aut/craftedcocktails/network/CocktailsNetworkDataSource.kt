@@ -25,7 +25,7 @@ class CocktailsNetworkDataSource @Inject constructor(
     suspend fun deleteCocktailById(cocktailId: String) = deleteApi.deleteCocktail(cocktailId)
 
     suspend fun filterByAlcoholic(alcoholicType: String): Response {
-        return if (alcoholicType == "alcoholic") {
+        return if (alcoholicType == "Alcoholic") {
             filterApi.searchCocktailByFilter(a = "Alcoholic", i = "")
         } else {
             filterApi.searchCocktailByFilter(a = "Non_Alcoholic", i = "")
