@@ -28,7 +28,10 @@
                     android:id="@+id/cocktail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
                     android:hint="@string/cocktail_name"
                     app:boxCornerRadiusTopEnd="8dp"
                     app:boxCornerRadiusTopStart="8dp"
@@ -53,8 +56,25 @@
                     android:id="@+id/cocktail_type_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:hint="@string/search_by_cocktail_type"
                     android:textColor="@color/black"
-                    android:layout_margin="8dp"/>
+                    android:textColorHint="@color/black" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/cocktail_ingredient_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:hint="@string/search_by_ingredient"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
 
             </LinearLayout>
 

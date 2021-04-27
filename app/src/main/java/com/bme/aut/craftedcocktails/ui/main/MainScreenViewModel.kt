@@ -51,8 +51,7 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    // endregion network
-    fun searchByCocktailType(type: String) = execute {
+    fun searchByCocktailType(type: String) = executeNonBlocking {
         viewState = Loading
         viewState = try {
             val typedCocktails = mainScreenPresenter.filterByAlcoholic(type)
@@ -62,14 +61,38 @@ class MainScreenViewModel @Inject constructor(
             val detailedCocktails = arrayListOf<Cocktail>()
             randomCocktailIds?.forEach {
                 val detailedCocktail = mainScreenPresenter.getDetailsOfCocktail(it?.idDrink!!)
-                detailedCocktails.add(detailedCocktail.drinks?.get(0)!!)
-                Timber.d("$TAG detailedCocktail: $detailedCocktail")
+                val cocktail = detailedCocktail.drinks?.get(0)!!
+                detailedCocktails.add(cocktail)
+                mainScreenPresenter.insertCocktails(ItemConverter.modelToEntity(cocktail))
+                Timber.d("$TAG searchByCocktailType -> detailedCocktail: $cocktail")
             }
             DataReady(detailedCocktails)
         } catch (e: Exception) {
             NetworkError
         }
     }
+
+    fun filterByIngredient(ingredient: String) = executeNonBlocking {
+        viewState = Loading
+        viewState = try {
+            val cocktailsByIngredient = mainScreenPresenter.filterByIngredient(ingredient)
+            val mList = cocktailsByIngredient.drinks?.toMutableList()
+            mList?.shuffle(Random())
+            val randomCocktailIds = mList?.subList(0, 10)
+            val detailedCocktails = arrayListOf<Cocktail>()
+            randomCocktailIds?.forEach {
+                val detailedCocktail = mainScreenPresenter.getDetailsOfCocktail(it?.idDrink!!)
+                val cocktail = detailedCocktail.drinks?.get(0)!!
+                detailedCocktails.add(cocktail)
+                mainScreenPresenter.insertCocktails(ItemConverter.modelToEntity(cocktail))
+                Timber.d("$TAG filterByIngredient-> detailedCocktail: $cocktail")
+            }
+            DataReady(detailedCocktails)
+        } catch (e: Exception) {
+            NetworkError
+        }
+    }
+    // endregion network
 
     // region database
 

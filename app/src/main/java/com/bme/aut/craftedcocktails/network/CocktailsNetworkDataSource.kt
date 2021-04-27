@@ -26,14 +26,14 @@ class CocktailsNetworkDataSource @Inject constructor(
 
     suspend fun filterByAlcoholic(alcoholicType: String): Response {
         return if (alcoholicType == "Alcoholic") {
-            filterApi.searchCocktailByFilter(a = "Alcoholic", i = "")
+            filterApi.searchCocktailByFilter(a = "Alcoholic", i = null)
         } else {
-            filterApi.searchCocktailByFilter(a = "Non_Alcoholic", i = "")
+            filterApi.searchCocktailByFilter(a = "Non_Alcoholic", i = null)
         }
     }
 
     suspend fun filterByIngredient(ingredient: String) =
-        filterApi.searchCocktailByFilter(a = "", i = ingredient)
+        filterApi.searchCocktailByFilter(a = null, i = ingredient)
 
     suspend fun getRandomCocktail() = randomApi.getRandomCocktail()
 

@@ -112,6 +112,30 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             }
         }
 
+        cocktail_ingredient_spinner.setItems(
+            "None",
+            "Tequila",
+            "Vodka",
+            "Bourbon",
+            "Champagne",
+            "Brandy",
+            "Gin",
+            "Scotch",
+            "Cherry brandy",
+            "Red wine",
+            "Rum",
+            "Cognac",
+            "Berries",
+            "Orange",
+            "Whiskey"
+        )
+        cocktail_ingredient_spinner.setOnItemSelectedListener { view, position, id, item ->
+            Timber.d("$TAG $item clicked")
+            if (item != "None") {
+                viewModel.filterByIngredient(item as String)
+            }
+        }
+
         viewModel.loadCocktails()
     }
 

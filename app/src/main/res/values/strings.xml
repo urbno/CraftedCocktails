@@ -7,4 +7,6 @@
     <string name="repository_link">https://github.com/urbno/CraftedCocktails</string>
     <string name="app_version_number">1.0.0</string>
     <string name="cocktail_name">Cocktail name</string>
+    <string name="search_by_cocktail_type">Search by cocktail type</string>
+    <string name="search_by_ingredient">Search by ingredient</string>
 </resources>
