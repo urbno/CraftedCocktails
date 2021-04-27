@@ -7,6 +7,7 @@ class AboutScreenViewModel @Inject constructor(private val aboutScreenPresenter:
     RainbowCakeViewModel<AboutScreenViewState>(Initial) {
 
     fun getAboutInfo() {
-        // TODO("Not yet implemented")
+        viewState = Loading
+        viewState = AboutReady("Urbán Norbert")
     }
 }
