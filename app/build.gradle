@@ -86,7 +86,7 @@ dependencies {
      * Coroutines
      * https://github.com/Kotlin/kotlinx.coroutines
      */
-    def coroutines_version = '1.4.2'
+    def coroutines_version = '1.4.3'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
@@ -183,13 +183,11 @@ dependencies {
     implementation "com.github.chnouman:AwesomeDialog:$awesome_dialog_version"
 
     /**
-     * Swipe Layout
-     * https://github.com/ToDou/nestrefresh
+     * Swipe Refresh Layout
+     * https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
      */
-//    def swipe_refresh_layout_version = '0.0.8'
-//    implementation "com.github.todou:nestrefresh-androidx:$swipe_refresh_layout_version"
-//
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+    def swipe_refresh_layout_version = '1.2.0-alpha01'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
     /**
      * Test

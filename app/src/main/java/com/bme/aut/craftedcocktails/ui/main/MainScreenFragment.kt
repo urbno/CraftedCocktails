@@ -2,7 +2,11 @@ package com.bme.aut.craftedcocktails.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.method.KeyListener
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import co.zsmb.materialdrawerkt.builders.accountHeader
@@ -25,6 +29,7 @@ import com.example.awesomedialog.*
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
+import java.security.Key
 import kotlin.random.Random
 
 class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenViewModel>() {
@@ -79,19 +84,32 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
                 iicon = GoogleMaterial.Icon.gmd_storage
                 onClick(deleteDatabase())
             }
-
         }
+
+        cocktail_name_search_field.setOnEditorActionListener { v, keyCode, event ->
+            Timber.d("$TAG keyCode: $keyCode event: $event")
+            if (keyCode == EditorInfo.IME_ACTION_DONE) {
+                val cocktailNameToSearch = cocktail_name_search_field.text.toString()
+                if (cocktailNameToSearch.isNotEmpty()) {
+                    Timber.d("$TAG cocktailNameToSearch: $cocktailNameToSearch")
+                    viewModel.searchCocktailByName(cocktailNameToSearch)
+                    return@setOnEditorActionListener true
+                }
+            }
+            false
+        }
+
         main_swipe.setOnRefreshListener {
             viewModel.loadCocktails()
         }
+
+
         viewModel.loadCocktails()
     }
 
     override fun render(viewState: MainScreenViewState) {
         when (viewState) {
             Initial -> {
-                progress_bar.isVisible = false
-                recycler_view.isVisible = false
             }
             Loading -> {
                 progress_bar.isVisible = true

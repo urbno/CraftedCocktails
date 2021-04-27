@@ -38,6 +38,22 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
+    // region network
+
+    fun searchCocktailByName(cocktailName: String) = execute {
+        viewState = Loading
+        viewState = try {
+            val result = mainScreenPresenter.getCocktailByName(cocktailName).drinks?.get(0)!!
+            DataReady(arrayListOf(result))
+        } catch (e: Exception) {
+            NetworkError
+        }
+    }
+
+    // endregion network
+
+    // region database
+
     fun deleteCocktailFromDatabase(cocktailId: String) = executeNonBlocking {
         mainScreenPresenter.deleteCocktail(cocktailId)
         viewState = Loading
@@ -47,5 +63,7 @@ class MainScreenViewModel @Inject constructor(
     fun deleteAllCocktails() = executeNonBlocking {
         mainScreenPresenter.deleteAllCocktails()
     }
+
+    // endregion database
 
 }
