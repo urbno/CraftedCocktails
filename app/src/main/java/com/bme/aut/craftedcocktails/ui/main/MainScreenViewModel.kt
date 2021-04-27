@@ -18,23 +18,34 @@ class MainScreenViewModel @Inject constructor(
     fun loadCocktails() = execute {
         viewState = Loading
         viewState = try {
-            val randomCocktails = arrayListOf<Cocktail>()
-            val cocktail = mainScreenPresenter.getRandomCocktail().drinks?.get(0)!!
-            randomCocktails.add(cocktail)
-            mainScreenPresenter.insertCocktails(ItemConverter.modelToEntity(cocktail))
-            Timber.d("$TAG network: $randomCocktails")
-            val randomCocktailsDB = arrayListOf<Cocktail>()
-            for (rCocktail in randomCocktails) {
-                val dbCocktail = mainScreenPresenter.getSpecificCocktail(rCocktail.idDrink!!)
-                dbCocktail.forEach {
-                    randomCocktailsDB.add(ItemConverter.entityToModel(it))
+            val databaseCocktails = mainScreenPresenter.getSavedCocktails()
+            var cocktail: Cocktail
+            if (databaseCocktails.size < 10) {
+                for (i in 0..(10 - databaseCocktails.size)) {
+                    cocktail = mainScreenPresenter.getRandomCocktail().drinks?.get(0)!!
+                    Timber.d("$TAG network: $cocktail")
+                    mainScreenPresenter.insertCocktails(ItemConverter.modelToEntity(cocktail))
                 }
             }
-            Timber.d("$TAG database: $randomCocktailsDB")
-            DataReady(randomCocktails)
+            val cocktails = arrayListOf<Cocktail>()
+            databaseCocktails.forEach {
+                cocktails.add(ItemConverter.entityToModel(it))
+            }
+            Timber.d("$TAG database: $databaseCocktails")
+            DataReady(cocktails)
         } catch (e: Exception) {
             NetworkError
         }
+    }
+
+    fun deleteCocktailFromDatabase(cocktailId: String) = executeNonBlocking {
+        mainScreenPresenter.deleteCocktail(cocktailId)
+        viewState = Loading
+        viewState = DataReady(arrayListOf())
+    }
+
+    fun deleteAllCocktails() = executeNonBlocking {
+        mainScreenPresenter.deleteAllCocktails()
     }
 
 }

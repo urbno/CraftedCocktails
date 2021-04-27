@@ -12,3 +12,5 @@ object Loading : MainScreenViewState()
 data class DataReady(val result: ArrayList<Cocktail>) : MainScreenViewState()
 
 object NetworkError : MainScreenViewState()
+
+object DatabaseError : MainScreenViewState()

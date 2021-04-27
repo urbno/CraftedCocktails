@@ -183,6 +183,15 @@ dependencies {
     implementation "com.github.chnouman:AwesomeDialog:$awesome_dialog_version"
 
     /**
+     * Swipe Layout
+     * https://github.com/ToDou/nestrefresh
+     */
+//    def swipe_refresh_layout_version = '0.0.8'
+//    implementation "com.github.todou:nestrefresh-androidx:$swipe_refresh_layout_version"
+//
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
+    /**
      * Test
      */
     def test_support_version = '1.0.2'

@@ -31,4 +31,7 @@ class MainScreenPresenter @Inject constructor(
 
     suspend fun getSpecificCocktail(idDrink: String) =
         cocktailsInteractor.getSpecificCocktail(idDrink)
+
+    suspend fun deleteCocktail(idDrink: String) =
+        cocktailsInteractor.deleteCocktail(idDrink)
 }

@@ -22,10 +22,10 @@ import com.bme.aut.craftedcocktails.ui.about.AboutScreenFragment
 import com.bme.aut.craftedcocktails.ui.details.DetailsScreenFragment
 import com.bme.aut.craftedcocktails.ui.main.adapter.CocktailsAdapter
 import com.example.awesomedialog.*
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
+import kotlin.random.Random
 
 class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenViewModel>() {
 
@@ -71,14 +71,27 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
                 iicon = GoogleMaterial.Icon.gmd_info
                 onClick(navigateToScreen("About"))
             }
-        }
 
+            sectionHeader("Options") {
+                divider = true
+            }
+            primaryItem("Clear Database") {
+                iicon = GoogleMaterial.Icon.gmd_storage
+                onClick(deleteDatabase())
+            }
+
+        }
+        main_swipe.setOnRefreshListener {
+            viewModel.loadCocktails()
+        }
         viewModel.loadCocktails()
     }
 
     override fun render(viewState: MainScreenViewState) {
         when (viewState) {
             Initial -> {
+                progress_bar.isVisible = false
+                recycler_view.isVisible = false
             }
             Loading -> {
                 progress_bar.isVisible = true
@@ -87,12 +100,18 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             is DataReady -> {
                 cocktailsAdapter.submitList(viewState.result)
                 progress_bar.isVisible = false
+                main_swipe.isRefreshing = false
                 recycler_view.isVisible = true
             }
             NetworkError -> {
                 progress_bar.isVisible = false
                 recycler_view.isVisible = false
                 showNetworkAlertDialog()
+            }
+            DatabaseError -> {
+                progress_bar.isVisible = false
+                recycler_view.isVisible = false
+                showDatabaseAlertDialog()
             }
         }.exhaustive
     }
@@ -106,6 +125,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
         })
 
     private fun onCocktailItemLongClicked(cocktail: Cocktail): Boolean {
+        showDeleteCocktailFromDB(cocktail.idDrink!!)
         return true
     }
 
@@ -121,6 +141,12 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
         false
     }
 
+    private fun deleteDatabase(): (View?) -> Boolean = {
+        viewModel.deleteAllCocktails()
+        viewModel.loadCocktails()
+        false
+    }
+
     private fun showNetworkAlertDialog() {
         AwesomeDialog.build(requireActivity())
             .title("Network Error", titleColor = Color.BLACK)
@@ -128,6 +154,33 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
             .icon(R.drawable.ic_error_symbol)
             .onPositive("Refresh") {
                 Timber.d("$TAG network error on positive")
+                viewModel.loadCocktails()
+            }
+    }
+
+    private fun showDatabaseAlertDialog() {
+        AwesomeDialog.build(requireActivity())
+            .title("Database Error", titleColor = Color.BLACK)
+            .body("Something went wrong during database request", color = Color.BLACK)
+            .icon(R.drawable.ic_error_symbol)
+            .onPositive("Refresh") {
+                Timber.d("$TAG network error on positive")
+                viewModel.loadCocktails()
+            }
+    }
+
+    private fun showDeleteCocktailFromDB(cocktailId: String) {
+        AwesomeDialog.build(requireActivity())
+            .title("Delete", titleColor = Color.BLACK)
+            .body("Do you really want to delete from database ?", color = Color.BLACK)
+            .icon(R.drawable.ic_question_mark_symbol)
+            .onPositive("Ok") {
+                Timber.d("$TAG delete from database on positive")
+                viewModel.deleteCocktailFromDatabase(cocktailId)
+                viewModel.loadCocktails()
+            }
+            .onNegative("Cancel") {
+                Timber.d("$TAG delete from database on negative")
             }
     }
 }
