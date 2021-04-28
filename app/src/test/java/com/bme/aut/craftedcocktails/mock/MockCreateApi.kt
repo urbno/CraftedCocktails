@@ -7,6 +7,10 @@ import com.bme.aut.craftedcocktails.network.api.CreateApi
 class MockCreateApi : CreateApi {
 
     override suspend fun createNewCocktail(body: Cocktail?): ApiResponse {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
+        return ApiResponse().apply {
+            message = "Successfully created new cocktail"
+            code = 200
+        }
     }
 }

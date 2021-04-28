@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class CocktailsDiskDatasourceTest {
+class CocktailsDiskDataSourceTest {
 
     private lateinit var cocktailDao: CocktailDao
     private lateinit var database: AppDatabase
