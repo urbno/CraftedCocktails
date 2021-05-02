@@ -12,7 +12,7 @@ class MockLookupApi : LookupApi {
         delay(1000)
         return Response().also { response ->
             response.drinks = Drinks().also { drinks ->
-                arrayListOf(Cocktail().also { cocktail ->
+                drinks.add(Cocktail().also { cocktail ->
                     cocktail.idDrink = "11007"
                     cocktail.strDrink = "Margarita"
                     cocktail.strCategory = "Ordinary Drink"
