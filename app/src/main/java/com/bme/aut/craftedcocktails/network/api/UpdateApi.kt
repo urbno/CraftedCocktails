@@ -1,5 +1,6 @@
 package com.bme.aut.craftedcocktails.network.api
 
+import com.bme.aut.craftedcocktails.model.ApiResponse
 import com.bme.aut.craftedcocktails.model.Cocktail
 import retrofit2.http.Body
 import retrofit2.http.PATCH
@@ -14,5 +15,5 @@ interface UpdateApi {
     @PATCH("modify.php")
     suspend fun updateCocktail(
         @Body body: Cocktail?
-    ): Void
+    ): ApiResponse
 }

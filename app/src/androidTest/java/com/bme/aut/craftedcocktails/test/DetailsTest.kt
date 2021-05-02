@@ -7,7 +7,8 @@ import org.junit.Before
 import org.junit.Test
 
 class DetailsTest {
-    lateinit var mockLookupApi: MockLookupApi
+
+    private lateinit var mockLookupApi: MockLookupApi
 
     @Before
     fun initializeNetworkDataSource() {
