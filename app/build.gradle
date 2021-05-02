@@ -15,6 +15,7 @@ plugins {
  */
 jacoco {
     toolVersion = "$jacocoVersion"
+    reportsDir = file("$buildDir/jacoco")
 }
 
 tasks.withType(Test) {
@@ -25,6 +26,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     reports {
         xml.enabled = true
         html.enabled = true
+        html.destination file("${buildDir}/reports/jacoco/html")
     }
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
@@ -54,6 +56,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
