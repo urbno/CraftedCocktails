@@ -10,9 +10,16 @@ import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.exhaustive
 import com.bme.aut.craftedcocktails.R
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_about.*
+import java.lang.RuntimeException
 
 class AboutScreenFragment : RainbowCakeFragment<AboutScreenViewState, AboutScreenViewModel>() {
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun getViewResource() = R.layout.fragment_about
 
@@ -20,7 +27,12 @@ class AboutScreenFragment : RainbowCakeFragment<AboutScreenViewState, AboutScree
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        firebaseAnalytics = Firebase.analytics
         viewModel.getAboutInfo()
+
+        test_crash_button.setOnClickListener {
+            throw RuntimeException("Test Crash")
+        }
     }
 
     override fun onEvent(event: OneShotEvent) {
@@ -40,6 +52,9 @@ class AboutScreenFragment : RainbowCakeFragment<AboutScreenViewState, AboutScree
                 progress_bar.isVisible = false
                 card_view.isVisible = true
                 initDetailView(viewState.result)
+                firebaseAnalytics.logEvent("AboutReady") {
+                    param("AboutReady", viewState.result)
+                }
             }
         }.exhaustive
     }

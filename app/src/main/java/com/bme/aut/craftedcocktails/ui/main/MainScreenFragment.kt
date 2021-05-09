@@ -26,6 +26,10 @@ import com.bme.aut.craftedcocktails.ui.about.AboutScreenFragment
 import com.bme.aut.craftedcocktails.ui.details.DetailsScreenFragment
 import com.bme.aut.craftedcocktails.ui.main.adapter.CocktailsAdapter
 import com.example.awesomedialog.*
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
@@ -36,6 +40,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
 
     private var TAG = MainScreenFragment::class.java.simpleName
     private lateinit var cocktailsAdapter: CocktailsAdapter
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun provideViewModel() = getViewModelFromFactory()
 
@@ -43,7 +48,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        firebaseAnalytics = Firebase.analytics
         cocktailsAdapter =
             CocktailsAdapter(requireContext(), ::onCocktailItemClicked, ::onCocktailItemLongClicked)
         recycler_view.adapter = cocktailsAdapter
@@ -61,7 +66,7 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
 
             accountHeader {
                 savedInstance = savedInstanceState
-                translucentStatusBar = false
+                translucentStatusBar = true
                 profile("Urbán Norbert", "urban@norbert.hu")
             }
 
@@ -152,16 +157,25 @@ class MainScreenFragment : RainbowCakeFragment<MainScreenViewState, MainScreenVi
                 progress_bar.isVisible = false
                 main_swipe.isRefreshing = false
                 recycler_view.isVisible = true
+                firebaseAnalytics.logEvent("DataReady") {
+                    param("DataReady", viewState.result.size.toString())
+                }
             }
             NetworkError -> {
                 progress_bar.isVisible = false
                 recycler_view.isVisible = false
                 showNetworkAlertDialog()
+                firebaseAnalytics.logEvent("Network_Error") {
+                    param("Network_Error", "Network_Error")
+                }
             }
             DatabaseError -> {
                 progress_bar.isVisible = false
                 recycler_view.isVisible = false
                 showDatabaseAlertDialog()
+                firebaseAnalytics.logEvent("Database_Error") {
+                    param("Database_Error", "Database_Error")
+                }
             }
         }.exhaustive
     }

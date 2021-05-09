@@ -12,11 +12,17 @@ import com.bme.aut.craftedcocktails.R
 import com.bme.aut.craftedcocktails.model.Cocktail
 import com.bumptech.glide.Glide
 import com.example.awesomedialog.*
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_details.*
 import timber.log.Timber
 
 class DetailsScreenFragment :
     RainbowCakeFragment<DetailsScreenViewState, DetailsScreenViewModel>() {
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     companion object {
         const val COCKTAIL_ID = "cocktailID"
@@ -31,7 +37,7 @@ class DetailsScreenFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        firebaseAnalytics = Firebase.analytics
         cocktailId = requireArguments().getString(COCKTAIL_ID).toString()
         viewModel.getCocktailDetailsById(cocktailId)
     }
@@ -54,11 +60,17 @@ class DetailsScreenFragment :
                 progress_bar.isVisible = false
                 card_view.isVisible = true
                 initDetailView(viewState.result)
+                firebaseAnalytics.logEvent("DetailsReady") {
+                    param("DetailsReady", viewState.result.strDrink.toString())
+                }
             }
             DatabaseError -> {
                 progress_bar.isVisible = false
                 card_view.isVisible = false
                 showDatabaseAlertDialog()
+                firebaseAnalytics.logEvent("DatabaseError") {
+                    param("DatabaseError", "DatabaseError")
+                }
             }
         }
     }

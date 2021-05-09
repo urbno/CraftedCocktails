@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'jacoco'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 /**
@@ -58,6 +60,7 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
+            ext.enableCrashlytics = true
         }
         release {
             minifyEnabled false
@@ -260,5 +263,17 @@ dependencies {
     testImplementation 'javax.annotation:jsr250-api:1.0'
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
+
+    /**
+     * Analitics
+     * https://firebase.google.com/docs/android/setup
+     * https://firebase.google.com/docs/crashlytics/get-started
+     */
+    def play_services_version = "17.0.0"
+    def firebase_bom_version = "27.1.0"
+    implementation "com.google.android.gms:play-services-analytics:$play_services_version"
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 }
