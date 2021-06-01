@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "661692948699",
+    "project_id": "craftedcocktails-49866",
+    "storage_bucket": "craftedcocktails-49866.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661692948699:android:5fd283b038a40b228cacfe",
+        "android_client_info": {
+          "package_name": "com.bme.aut.craftedcocktails.ormTest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661692948699-rckqduirpt4dppttcb7k0ihlvk4jinmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw9wzkSw5lUJFCU2BHPSqHL-pPeJ2Pl2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661692948699-rckqduirpt4dppttcb7k0ihlvk4jinmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

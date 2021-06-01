@@ -7,6 +7,7 @@ import java.util.*
 
 @ApiModel(description = "")
 class Cocktail {
+
     /**
      */
     @get:ApiModelProperty(value = "")
@@ -108,39 +109,6 @@ class Cocktail {
     @get:ApiModelProperty(value = "")
     @SerializedName("strMeasure5")
     var strMeasure5: String? = null
-
-    /**
-     */
-    @get:ApiModelProperty(value = "")
-    @SerializedName("quantity")
-    var quantity: Int? = null
-
-    /**
-     */
-    @get:ApiModelProperty(value = "")
-    @SerializedName("shipDate")
-    var shipDate: Date? = null
-
-    enum class StatusEnum(private val value: String) {
-        PLACED("placed"), APPROVED("approved"), DELIVERED("delivered");
-
-        override fun toString(): String {
-            return value
-        }
-    }
-
-    /**
-     * Order Status
-     */
-    @get:ApiModelProperty(value = "Order Status")
-    @SerializedName("status")
-    var status: StatusEnum? = null
-
-    /**
-     */
-    @get:ApiModelProperty(value = "")
-    @SerializedName("complete")
-    var complete = false
     override fun equals(o: Any?): Boolean {
         if (this === o) {
             return true
@@ -165,11 +133,7 @@ class Cocktail {
                 strMeasure2 == cocktail.strMeasure2 &&
                 strMeasure3 == cocktail.strMeasure3 &&
                 strMeasure4 == cocktail.strMeasure4 &&
-                strMeasure5 == cocktail.strMeasure5 &&
-                quantity == cocktail.quantity &&
-                shipDate == cocktail.shipDate &&
-                status == cocktail.status &&
-                complete == cocktail.complete
+                strMeasure5 == cocktail.strMeasure5
     }
 
     override fun hashCode(): Int {
@@ -190,11 +154,7 @@ class Cocktail {
             strMeasure2,
             strMeasure3,
             strMeasure4,
-            strMeasure5,
-            quantity,
-            shipDate,
-            status,
-            complete
+            strMeasure5
         )
     }
 
@@ -218,10 +178,6 @@ class Cocktail {
         sb.append("    strMeasure3: ").append(toIndentedString(strMeasure3)).append("\n")
         sb.append("    strMeasure4: ").append(toIndentedString(strMeasure4)).append("\n")
         sb.append("    strMeasure5: ").append(toIndentedString(strMeasure5)).append("\n")
-        sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n")
-        sb.append("    shipDate: ").append(toIndentedString(shipDate)).append("\n")
-        sb.append("    status: ").append(toIndentedString(status)).append("\n")
-        sb.append("    complete: ").append(toIndentedString(complete)).append("\n")
         sb.append("}")
         return sb.toString()
     }

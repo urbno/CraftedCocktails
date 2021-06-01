@@ -7,7 +7,6 @@ class DetailsScreenPresenter @Inject constructor(
     private val cocktailsInteractor: CocktailsInteractor
 ) {
 
-    suspend fun getCocktailDetails() {
-        // TODO("Not yet implemented")
-    }
+    suspend fun getCocktailDetailsById(cocktailId: String) =
+        cocktailsInteractor.getSpecificCocktail(cocktailId)
 }
