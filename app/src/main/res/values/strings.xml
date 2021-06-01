@@ -10,4 +10,6 @@
     <string name="search_by_cocktail_type">Search by cocktail type</string>
     <string name="search_by_ingredient">Search by ingredient</string>
     <string name="test_crash">Test Crash</string>
+    <string name="not_device_owner">You are not the owner</string>
+    <string name="device_owner">You are admin!</string>
 </resources>
